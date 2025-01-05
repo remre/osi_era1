@@ -1,0 +1,27 @@
+name: Send Email on Commit
+
+on: [push]
+
+jobs:
+  send_email:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository content
+      uses: actions/checkout@v2
+
+    - name: Send email
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.gmail.com
+        server_port: 465
+        username: ${{ secrets.EMAIL_USERNAME }}
+        password: ${{ secrets.EMAIL_PASSWORD }}
+        subject: New Commit
+        body: |
+          A new commit has been pushed to the repository.
+          https://github.com/remre/osi_era1
+          Commit details:
+          ${{ github.event.head_commit.message }}
+        to: ${{ secrets.EMAIL_TO }}, ${{ secrets.EMAIL_TO_2 }}
+        from: ${{ secrets.EMAIL_USERNAME }}
