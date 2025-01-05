@@ -20,6 +20,7 @@ jobs:
         subject: New Commit
         body: |
           A new commit has been pushed to the repository.
+          https://github.com/remre/osi_era1
           Commit details:
           ${{ github.event.head_commit.message }}
         to: ${{ secrets.EMAIL_TO }}, ${{ secrets.EMAIL_TO_2 }}
