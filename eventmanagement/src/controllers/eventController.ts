@@ -125,13 +125,18 @@ export const deleteEvent = async (
       res.status(404).json({ message: "Event not found" });
       return;
     }
+    if (event.createdBy !== req.user?.id?.toString()) {
+      res
+        .status(403)
+        .json({ error: "Unauthorized: You cannot update this event" });
+      return;
+    }
 
     res.json({ message: "Event deleted successfully" });
   } catch (error) {
     next(error);
   }
 };
-
 export const updateEvent = async (
   req: Request,
   res: Response,
