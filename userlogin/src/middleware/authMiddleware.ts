@@ -20,7 +20,6 @@ export const authenticateToken = (
   res: Response,
   next: NextFunction
 ): void => {
-  // Token kontrolü: Önce Authorization Header, sonra Cookie
   const token = req.cookies.token || req.header("Authorization")?.split(" ")[1];
 
   if (!token) {
@@ -49,7 +48,6 @@ export const authenticateToken = (
       // Token'den kullanıcı bilgilerini çıkar ve isteğe ekle
       req.user = decoded as CustomJwtPayload;
       console.log("Token verified, user:", req.user);
-      console.log("user login Middleware: Token received:", token);
 
       next();
     }

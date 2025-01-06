@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Request, Response, NextFunction } from "express";
+
 export const verifyTokenMiddleware = async (
   req: Request,
   res: Response,
@@ -7,8 +8,7 @@ export const verifyTokenMiddleware = async (
 ): Promise<void> => {
   console.log("Middleware: Token verification started");
 
-  // const token = req.cookies.token || req.header("Authorization")?.split(" ")[1];
-  const token = req.header("Authorization")?.split(" ")[1];
+  const token = req.cookies.token || req.header("Authorization")?.split(" ")[1];
 
   console.log("Middleware: Token received:", token);
 
@@ -38,10 +38,7 @@ export const verifyTokenMiddleware = async (
 
     next();
   } catch (error: any) {
-    console.error(
-      "Middleware: event management Token verification failed:",
-      error.message
-    );
+    console.error("Middleware: Token verification failed:", error.message);
     res.status(403).json({ error: "Invalid or expired token" });
   }
 };

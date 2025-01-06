@@ -19,7 +19,7 @@ router.post("/", verifyTokenMiddleware, createEvent);
 
 router.put("/:eventId", verifyTokenMiddleware, updateEvent);
 
-router.post("/:eventId/comments", verifyTokenMiddleware, addComment);
+router.post("/:eventId/comments", addComment);
 
 router.delete("/:eventId", verifyTokenMiddleware, deleteEvent);
 
