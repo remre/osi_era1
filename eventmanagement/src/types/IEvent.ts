@@ -3,11 +3,7 @@ export interface IEvent {
   description: string;
   date: Date;
   images: string[];
-  comments: {
-    user: string;
-    content: string;
-    createdAt: Date;
-  }[];
-  location?: string;
+  comments: Array<{ user: string; content: string; createdAt: Date }>;
   createdBy: string;
+  attendees: string[];
 }

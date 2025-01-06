@@ -5,6 +5,7 @@ import {
   getEventById,
   addComment,
   deleteEvent,
+  attendEvent,
   updateEvent,
 } from "../controllers/eventController";
 import { verifyTokenMiddleware } from "../middleware/verifyTokenMiddleware";
@@ -19,8 +20,10 @@ router.post("/", verifyTokenMiddleware, createEvent);
 
 router.put("/:eventId", verifyTokenMiddleware, updateEvent);
 
-router.post("/:eventId/comments", addComment);
-
 router.delete("/:eventId", verifyTokenMiddleware, deleteEvent);
+
+router.post("/:eventId/attend", verifyTokenMiddleware, attendEvent);
+
+router.post("/:eventId/comments", addComment);
 
 export default router;

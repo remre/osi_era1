@@ -189,3 +189,41 @@ export const updateEvent = async (
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const attendEvent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { eventId } = req.params;
+
+    if (!req.user || !req.user.id) {
+      res.status(401).json({ message: "Unauthorized: User not authenticated" });
+      return;
+    }
+
+    const event = await Event.findById(eventId);
+    if (!event) {
+      res.status(404).json({ message: "Event not found" });
+      return;
+    }
+
+    if (event.attendees.includes(req.user.id.toString())) {
+      res.status(400).json({ message: "You have already joined this event" });
+      return;
+    }
+
+    if (event.createdBy.toString() === req.user.id.toString()) {
+      res.status(400).json({ message: "You cannot join your own event" });
+      return;
+    }
+
+    event.attendees.push(req.user.id.toString());
+    await event.save();
+
+    res.status(200).json({ message: "You have joined the event", event });
+  } catch (error) {
+    next(error);
+  }
+};

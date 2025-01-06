@@ -1,28 +1,22 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { IEvent } from "../types/IEvent";
 
-const commentSchema = new Schema(
-  {
-    user: { type: String, required: true },
-    content: { type: String, required: true },
-    createdAt: { type: Date, default: Date.now },
-  },
-  { _id: false }
-);
+interface EventDocument extends IEvent, Document {}
 
-const eventSchema = new Schema<IEvent & Document>(
-  {
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    date: { type: Date, required: true },
-    images: [{ type: String }],
-    comments: [commentSchema],
-    location: { type: String },
-    createdBy: { type: String, required: true },
-  },
-  { timestamps: true }
-);
+const EventSchema: Schema = new Schema({
+  title: { type: String, required: true },
+  description: { type: String, default: "No description provided" },
+  date: { type: Date, required: true },
+  images: { type: [String], default: [] },
+  comments: [
+    {
+      user: { type: String, required: true },
+      content: { type: String, required: true },
+      createdAt: { type: Date, default: Date.now },
+    },
+  ],
+  createdBy: { type: String, required: true },
+  attendees: { type: [String], default: [] },
+});
 
-const Event = mongoose.model<IEvent & Document>("Event", eventSchema);
-
-export default Event;
+export default mongoose.model<EventDocument>("Event", EventSchema);
