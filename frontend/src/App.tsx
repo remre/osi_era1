@@ -7,7 +7,7 @@ import {
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { AuthProvider, useAuth } from "./context/AuthContext";
-import LogoutButton from "./compounds/LogoutButton";
+import LogoutButton from "./components/compounds/LogoutButton";
 import "./App.css";
 import axios from "axios";
 

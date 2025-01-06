@@ -5,10 +5,7 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import axios from "axios";
-
-axios.defaults.baseURL = "http://localhost:4000";
-axios.defaults.withCredentials = true;
+import userAxiosInstance from "../api/userAxiosInstance";
 
 interface User {
   id: number;
@@ -34,7 +31,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const response = await axios.get("/api/users/me");
+        const response = await userAxiosInstance.get("/api/users/me");
         setUser(response.data);
       } catch {
         setUser(null);
@@ -47,17 +44,27 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   }, []);
 
   const login = async (username: string, password: string) => {
-    await axios.post("/api/users/login", { username, password });
-    const response = await axios.get("/api/users/me");
-    setUser(response.data);
+    const response = await userAxiosInstance.post("/api/users/login", {
+      username,
+      password,
+    });
+
+    // Save token to localStorage
+    localStorage.setItem("token", response.data.token);
+
+    const userResponse = await userAxiosInstance.get("/api/users/me");
+    setUser(userResponse.data);
   };
 
   const register = async (username: string, password: string) => {
-    await axios.post("/api/users/register", { username, password });
+    await userAxiosInstance.post("/api/users/register", { username, password });
   };
 
   const logout = async () => {
-    await axios.post("/api/users/logout");
+    await userAxiosInstance.post("/api/users/logout");
+
+    // Token'ı localStorage'dan sil
+    localStorage.removeItem("token");
     setUser(null);
   };
 
