@@ -45,7 +45,6 @@ const EventComments: React.FC<EventCommentsProps> = ({ eventId, comments }) => {
 
       {showComments && (
         <div className="mt-2">
-          {/* Mevcut Yorumlar */}
           {comments.length > 0 ? (
             <ul className="space-y-2">
               {comments.map((comment, index) => (
@@ -64,7 +63,6 @@ const EventComments: React.FC<EventCommentsProps> = ({ eventId, comments }) => {
             <p className="text-gray-500">No comments yet.</p>
           )}
 
-          {/* Yorum Ekleme */}
           <div className="mt-4">
             <textarea
               placeholder="Write a comment..."
