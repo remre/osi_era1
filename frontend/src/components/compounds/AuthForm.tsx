@@ -42,7 +42,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
   return (
     <div className="auth-container">
       <form onSubmit={handleSubmit} className="auth-form">
-        <h2 className="auth-title">{title}</h2>
+        <h2 className="title-second">{title}</h2>
         <Input
           type="text"
           value={username}

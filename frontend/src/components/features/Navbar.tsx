@@ -4,9 +4,9 @@ import LogoutButton from "../compounds/LogoutButton";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between w-full max-w-7xl mx-auto mt-20 text-nowrap">
+    <nav className="bg-white shadow-md rounded px-6 py-4 flex items-center justify-between w-full max-w-[1600px] mx-auto mt-10 text-nowrap">
       <div className="flex gap-4">
-        <NavLink to="/" className="text-lg font-bold text-gray-800">
+        <NavLink to="/" className="nav-text font-bold">
           EventsME
         </NavLink>
       </div>
@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
         <NavLink
           to="/my-events"
           className={({ isActive }) =>
-            `text-lg font-medium ${isActive ? "text-blue-600" : "text-gray-600"}`
+            `nav-text ${isActive ? "text-blue-600" : "text-gray-600"}`
           }
         >
           My Events

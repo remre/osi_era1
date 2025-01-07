@@ -7,7 +7,6 @@ const UpcomingEvents: React.FC = () => {
   const { user } = useAuth();
   const { events } = useEvent();
 
-  // Kullanıcının katıldığı ve gelecekteki etkinlikleri filtrele
   const upcomingJoinedEvents = events.filter(event => {
     const isFutureEvent = new Date(event.date) > new Date();
     const isUserJoined = event.attendees.includes((user?.id || "").toString());
@@ -16,8 +15,8 @@ const UpcomingEvents: React.FC = () => {
 
   return (
     <div className="mt-10">
-      <h2 className="text-xl font-semibold mb-4">Upcoming Events</h2>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <h2 className="title-second mb-4">Upcoming Events</h2>
+      <ul className="grid grid-rows-1 sm:grid-rows-2 lg:grid-rows-3 gap-6 lg:w-2/3">
         {upcomingJoinedEvents.length > 0 ? (
           upcomingJoinedEvents.map(event => (
             <EventCard

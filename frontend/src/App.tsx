@@ -38,9 +38,9 @@ const AppContent = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-100">
       <Navbar />
-      <div className="flex-grow flex items-center justify-center mt-10">
+      <div className="flex-grow flex items-center justify-center mt-10 ">
         <Routes>
           <Route path="/" element={<AllEventsPage />} />
           <Route path="my-events" element={<MyEventsPage />} />

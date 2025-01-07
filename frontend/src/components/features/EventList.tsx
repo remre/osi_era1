@@ -14,22 +14,27 @@ interface EventListProps {
   onEdit: (eventId: string) => void;
   onDelete: (eventId: string) => void;
 }
-
 const EventList: React.FC<EventListProps> = ({ events, onEdit, onDelete }) => {
   return (
-    <ul className="mb-4">
+    <ul className="flex flex-col min-w-4xl gap-6">
       {events.map(event => (
-        <EventItem
+        <li
           key={event._id}
-          title={event.title}
-          description={event.description}
-          date={event.date}
+          className="p-4 border rounded shadow-lg bg-white hover:shadow-xl transition-shadow duration-300"
         >
-          <EventActions
-            onEdit={() => onEdit(event._id)}
-            onDelete={() => onDelete(event._id)}
-          />
-        </EventItem>
+          <EventItem
+            title={event.title}
+            description={event.description}
+            date={event.date}
+          >
+            <div className="mt-4">
+              <EventActions
+                onEdit={() => onEdit(event._id)}
+                onDelete={() => onDelete(event._id)}
+              />
+            </div>
+          </EventItem>
+        </li>
       ))}
     </ul>
   );

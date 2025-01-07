@@ -37,17 +37,39 @@ const MyEventsPage = () => {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">My Events</h1>
+    <div className="p-4 max-w-screen-xl mx-auto">
+      <h1 className="title-first mb-6 text-2xl md:text-3xl lg:text-4xl">
+        My Events
+      </h1>
       {currentEdit ? (
-        <EventForm
-          initialData={currentEdit}
-          onSubmit={(data: typeof currentEdit) =>
-            currentEdit.eventId ? handleUpdate(data) : handleCreate(data)
-          }
-          onCancel={() => setCurrentEdit(null)}
-        />
+        <div className="mb-8">
+          <EventForm
+            initialData={currentEdit}
+            onSubmit={(data: typeof currentEdit) =>
+              currentEdit.eventId ? handleUpdate(data) : handleCreate(data)
+            }
+            onCancel={() => setCurrentEdit(null)}
+          />
+        </div>
       ) : (
+        <EventList
+          events={myEvents}
+          onEdit={(id: string) => {
+            const event = myEvents.find(e => e._id === id);
+            if (event) {
+              setCurrentEdit({
+                eventId: event._id,
+                title: event.title,
+                description: event.description,
+                date: new Date(event.date).toISOString().split("T")[0],
+                images: event.images,
+              });
+            }
+          }}
+          onDelete={handleDelete}
+        />
+      )}
+      <div className="flex justify-center mt-10">
         <button
           onClick={() =>
             setCurrentEdit({
@@ -57,27 +79,11 @@ const MyEventsPage = () => {
               images: [],
             })
           }
-          className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
+          className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md mb-6 hover:bg-blue-600 transition-all"
         >
           Create New Event
         </button>
-      )}
-      <EventList
-        events={myEvents}
-        onEdit={(id: string) => {
-          const event = myEvents.find(e => e._id === id);
-          if (event) {
-            setCurrentEdit({
-              eventId: event._id,
-              title: event.title,
-              description: event.description,
-              date: new Date(event.date).toISOString().split("T")[0],
-              images: event.images,
-            });
-          }
-        }}
-        onDelete={handleDelete}
-      />
+      </div>
     </div>
   );
 };

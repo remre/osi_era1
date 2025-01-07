@@ -50,7 +50,7 @@ const EventComments: React.FC<EventCommentsProps> = ({ eventId, comments }) => {
             <ul className="space-y-2">
               {comments.map((comment, index) => (
                 <li key={index} className="p-2 border rounded">
-                  <p className="text-sm">
+                  <p className="body-input">
                     <span className="font-bold">{comment.user}:</span>{" "}
                     {comment.content}
                   </p>

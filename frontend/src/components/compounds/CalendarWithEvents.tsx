@@ -47,9 +47,14 @@ const CalendarWithEvents: React.FC<CalendarWithEventsProps> = ({
     <Calendar
       onChange={value => onDateSelect(adjustDateForUTC(value as Date))}
       tileContent={tileContent}
-      className="w-full"
+      className="calendar w-full max-w-md md:max-w-lg lg:max-w-xl"
       minDetail="month"
       showNeighboringMonth={false}
+      navigationLabel={({ date }) => (
+        <div className="title-second text-center">
+          {date.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+        </div>
+      )}
     />
   );
 };

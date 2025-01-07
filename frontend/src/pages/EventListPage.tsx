@@ -22,9 +22,9 @@ const AllEventsPage: React.FC = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">All Events</h1>
+      <h1 className="title-first mb-6">All Events</h1>
       <div className="flex flex-col md:flex-row gap-8">
-        <div className="flex-1">
+        <div className="flex-1  ">
           <CalendarWithEvents
             events={events}
             onDateSelect={date => {
@@ -34,8 +34,8 @@ const AllEventsPage: React.FC = () => {
           />
         </div>
 
-        <div className="flex-1">
-          <h2 className="text-xl font-semibold mb-4">
+        <div className="flex-2">
+          <h2 className="title-second mb-4">
             {selectedDate
               ? `Events on ${selectedDate.toDateString()}`
               : "Select a date to view events"}

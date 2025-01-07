@@ -35,7 +35,7 @@ const EventCalendarList: React.FC<EventCalendarListProps> = ({ events }) => {
               .split("T")[0];
 
             return (
-              <li key={event._id} className="mb-4 p-4 border rounded">
+              <li key={event._id} className="mb-4 p-4 ">
                 <EventItem
                   title={event.title}
                   description={event.description}
