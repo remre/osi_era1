@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import Input from "../components/base/Input";
-import Button from "../components/base/Button";
+import Input from "../base/Input";
+import Button from "../base/Button";
 
 interface AuthFormProps {
   title: string;

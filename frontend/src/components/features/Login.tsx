@@ -1,5 +1,5 @@
 import { useAuth } from "../../context/AuthContext";
-import AuthForm from "../compounds/AuthForm";
+import AuthForm from "../../components/compounds/AuthForm";
 
 const Login = () => {
   const { login } = useAuth();

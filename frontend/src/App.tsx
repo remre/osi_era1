@@ -6,23 +6,25 @@ import {
 } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import AllEventsPage from "./pages/EventListPage";
 import { AuthProvider, useAuth } from "./context/AuthContext";
-import LogoutButton from "./components/compounds/LogoutButton";
+import MyEventsPage from "./pages/MyEvents";
 import "./App.css";
 import axios from "axios";
 
+import Loading from "./components/base/Loading";
+import { Suspense } from "react";
+import ErrorBoundary from "./components/compounds/ErrorBoundary";
+import { EventProvider } from "./context/EventContext";
 axios.defaults.withCredentials = true;
 
-// AppContent Component
+import Navbar from "./components/features/Navbar";
+
 const AppContent = () => {
   const { user, isLoading } = useAuth();
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100 duration-3000">
-        <h2>Loading...</h2>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (!user) {
@@ -35,26 +37,31 @@ const AppContent = () => {
     );
   }
 
-  // Kullanıcı giriş yaptıysa anasayfayı ve logout butonunu göster
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center flex-col">
-      <Routes>
-        <Route path="/" element={<h1>Welcome to the Event App</h1>} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-      <div className="flex mt-40 items-center justify-center">
-        <LogoutButton />
+    <div className="min-h-screen bg-gray-100 flex flex-col">
+      <Navbar />
+      <div className="flex-grow flex items-center justify-center mt-10">
+        <Routes>
+          <Route path="/" element={<AllEventsPage />} />
+          <Route path="my-events" element={<MyEventsPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </div>
     </div>
   );
 };
 
-// Main App Component
 const App = () => (
   <AuthProvider>
-    <Router>
-      <AppContent />
-    </Router>
+    <EventProvider>
+      <Router>
+        <ErrorBoundary>
+          <Suspense fallback={<Loading />}>
+            <AppContent />
+          </Suspense>
+        </ErrorBoundary>
+      </Router>
+    </EventProvider>
   </AuthProvider>
 );
 
