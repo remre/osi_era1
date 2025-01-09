@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  userlogin:
+    build: ./userlogin
+    ports:
+      - "4000:4000"
+    environment:
+      - SQLITE_DB=./data/userlogin.sqlite
+
+  eventmanagement:
+    build: ./eventmanagement
+    ports:
+      - "5001:5001"
+    env_file:
+      - ./eventmanagement/.env
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_BASE_URL=https://miniature-waffle-pgjv9xr566qh96pv-4000.app.github.dev/
+      - VITE_EVENT_API_URL=https://miniature-waffle-pgjv9xr566qh96pv-5001.app.github.dev/
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "443:443"
+    volumes:
+      - /workspaces/codespaces-blank/dockerize/nginx.conf:/etc/nginx/nginx.conf
+      - /workspaces/codespaces-blank/dockerize/ssl:/etc/nginx/ssl
+    depends_on:
+      - userlogin
+      - eventmanagement
+      - frontend
