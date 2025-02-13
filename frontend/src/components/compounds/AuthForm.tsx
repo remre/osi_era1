@@ -57,6 +57,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
           placeholder="Password"
           className="auth-input"
         />
+        <Input
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          placeholder="Password"
+          className="auth-input"
+        />
         {error && <p className="auth-error">{error}</p>}
         <Button type="submit" className="auth-button">
           {title}
