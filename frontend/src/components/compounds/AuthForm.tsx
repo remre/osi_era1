@@ -61,6 +61,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
         <Button type="submit" className="auth-button">
           {title}
         </Button>
+        <Button type="submit" className="auth-button">
+          {title}
+        </Button>
         {linkText && linkPath && (
           <p className="auth-link">
             {linkText} <a href={linkPath}>Here</a>
